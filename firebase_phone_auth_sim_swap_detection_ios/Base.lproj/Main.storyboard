@@ -1,24 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="firebase_phone_auth_sim_swap_detection_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tru.ID + Firebase Auth Verification" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkV-Vf-s27">
+                                <rect key="frame" x="30" y="129" width="354" height="64.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="ex. +441234567890" textAlignment="natural" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="403-9V-cch">
+                                <rect key="frame" x="30" y="279.5" width="354" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zvd-Z2-RWg">
+                                <rect key="frame" x="30" y="343" width="354" height="36"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Verify">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="verify:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3ja-xp-7XR"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zcg-6p-v6R">
+                                <rect key="frame" x="30" y="219.5" width="354" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="aXk-sV-khq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hhN-xP-ufz">
+                                <rect key="frame" x="189" y="454" width="37" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="vUM-Rp-49V"/>
+                                </constraints>
+                            </activityIndicatorView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Zvd-Z2-RWg" firstAttribute="top" secondItem="403-9V-cch" secondAttribute="bottom" constant="32.5" id="1HD-GE-YyY"/>
+                            <constraint firstItem="zcg-6p-v6R" firstAttribute="trailing" secondItem="403-9V-cch" secondAttribute="trailing" id="4hi-cs-XYb"/>
+                            <constraint firstItem="mkV-Vf-s27" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5EB-I3-9qy"/>
+                            <constraint firstItem="Zvd-Z2-RWg" firstAttribute="centerX" secondItem="hhN-xP-ufz" secondAttribute="centerX" id="6vv-Ci-Hbu"/>
+                            <constraint firstItem="zcg-6p-v6R" firstAttribute="top" secondItem="mkV-Vf-s27" secondAttribute="bottom" constant="26" id="7XV-Sv-n0u"/>
+                            <constraint firstItem="mkV-Vf-s27" firstAttribute="leading" secondItem="zcg-6p-v6R" secondAttribute="leading" id="BPa-x8-JEp"/>
+                            <constraint firstItem="mkV-Vf-s27" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="Mlf-j5-Ezn"/>
+                            <constraint firstItem="mkV-Vf-s27" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="85" id="Onl-fJ-WAc"/>
+                            <constraint firstItem="403-9V-cch" firstAttribute="trailing" secondItem="Zvd-Z2-RWg" secondAttribute="trailing" id="QfP-Vr-NkD"/>
+                            <constraint firstItem="hhN-xP-ufz" firstAttribute="top" secondItem="Zvd-Z2-RWg" secondAttribute="bottom" constant="75" id="WMD-Te-fRB"/>
+                            <constraint firstItem="403-9V-cch" firstAttribute="top" secondItem="zcg-6p-v6R" secondAttribute="bottom" constant="21" id="YaO-4J-iGB"/>
+                            <constraint firstItem="mkV-Vf-s27" firstAttribute="trailing" secondItem="zcg-6p-v6R" secondAttribute="trailing" id="fcU-K3-UJY"/>
+                            <constraint firstItem="hhN-xP-ufz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="189" id="gh0-AO-p79"/>
+                            <constraint firstItem="403-9V-cch" firstAttribute="leading" secondItem="Zvd-Z2-RWg" secondAttribute="leading" id="gxW-1M-xbM"/>
+                            <constraint firstItem="zcg-6p-v6R" firstAttribute="leading" secondItem="403-9V-cch" secondAttribute="leading" id="sIP-ng-76d"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="busyActivityIndicator" destination="hhN-xP-ufz" id="8Gy-kE-NvG"/>
+                        <outlet property="phoneNumberTextField" destination="403-9V-cch" id="M5V-kJ-D7m"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-459.4202898550725" y="130.58035714285714"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
