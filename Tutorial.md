@@ -110,7 +110,7 @@ All UI components are "Horizontally" aligned in the container using constraints.
 
 The view layout should look like this:
 
-![image](/Users/didemyakici/Documents/Development/Tru.ID_Github/firebase_phone_auth_sim_swap_detection_ios/Screenshot01.png)
+![Screenshot1](Screenshot01.png)
 
 There are a few configuration options you should add for these UI components:
 
@@ -127,7 +127,7 @@ This allows you to retrieve the phone number entered by the user. You now have o
 
 Let's insert an action. When a user taps on the **Verify** button, you want the `ViewController` to know that the user wants to initiate the SIMCheck. So select the `Verify` button, and with your ⌃ key pressed drag a connection from the storyboard to the `ViewController.swift`. Xcode indicates possible places where you can create an `IBAction`. When you are happy, release the keys and mouse/trackpad. You will be prompted to enter a name for the method: type verify and Xcode will insert the method with a IBAction annotation.
 
-![image](/Users/didemyakici/Documents/Development/Tru.ID_Github/firebase_phone_auth_sim_swap_detection_ios/Screenshot02.png)
+![Screenshot2](Screenshot02.png)
 
 ## Add Firebase Phone Authentication
 Now that you have your Firebase project set up and your User Interface built up, you can start with enabling Phone Number sign-in for your Firebase project.  When you click on the Phone within the [Authentication signing-in providers](https://console.firebase.google.com/u/0/project/iosfirebasetruid/authentication/providers), after enabling you will need to follow the instructions for [Authenticate with Firebase on iOS using a Phone Number](https://firebase.google.com/docs/auth/ios/phone-auth?authuser=0).
