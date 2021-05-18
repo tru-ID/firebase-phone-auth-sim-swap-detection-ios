@@ -41,41 +41,31 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zcg-6p-v6R">
                                 <rect key="frame" x="30" y="219.5" width="354" height="39"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="39" id="aXk-sV-khq"/>
+                                    <constraint firstAttribute="height" constant="39" id="IuF-6X-lEs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hhN-xP-ufz">
-                                <rect key="frame" x="189" y="454" width="37" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="vUM-Rp-49V"/>
-                                </constraints>
-                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Zvd-Z2-RWg" firstAttribute="top" secondItem="403-9V-cch" secondAttribute="bottom" constant="32.5" id="1HD-GE-YyY"/>
-                            <constraint firstItem="zcg-6p-v6R" firstAttribute="trailing" secondItem="403-9V-cch" secondAttribute="trailing" id="4hi-cs-XYb"/>
-                            <constraint firstItem="mkV-Vf-s27" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5EB-I3-9qy"/>
-                            <constraint firstItem="Zvd-Z2-RWg" firstAttribute="centerX" secondItem="hhN-xP-ufz" secondAttribute="centerX" id="6vv-Ci-Hbu"/>
-                            <constraint firstItem="zcg-6p-v6R" firstAttribute="top" secondItem="mkV-Vf-s27" secondAttribute="bottom" constant="26" id="7XV-Sv-n0u"/>
-                            <constraint firstItem="mkV-Vf-s27" firstAttribute="leading" secondItem="zcg-6p-v6R" secondAttribute="leading" id="BPa-x8-JEp"/>
-                            <constraint firstItem="mkV-Vf-s27" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="Mlf-j5-Ezn"/>
-                            <constraint firstItem="mkV-Vf-s27" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="85" id="Onl-fJ-WAc"/>
-                            <constraint firstItem="403-9V-cch" firstAttribute="trailing" secondItem="Zvd-Z2-RWg" secondAttribute="trailing" id="QfP-Vr-NkD"/>
-                            <constraint firstItem="hhN-xP-ufz" firstAttribute="top" secondItem="Zvd-Z2-RWg" secondAttribute="bottom" constant="75" id="WMD-Te-fRB"/>
-                            <constraint firstItem="403-9V-cch" firstAttribute="top" secondItem="zcg-6p-v6R" secondAttribute="bottom" constant="21" id="YaO-4J-iGB"/>
-                            <constraint firstItem="mkV-Vf-s27" firstAttribute="trailing" secondItem="zcg-6p-v6R" secondAttribute="trailing" id="fcU-K3-UJY"/>
-                            <constraint firstItem="hhN-xP-ufz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="189" id="gh0-AO-p79"/>
-                            <constraint firstItem="403-9V-cch" firstAttribute="leading" secondItem="Zvd-Z2-RWg" secondAttribute="leading" id="gxW-1M-xbM"/>
-                            <constraint firstItem="zcg-6p-v6R" firstAttribute="leading" secondItem="403-9V-cch" secondAttribute="leading" id="sIP-ng-76d"/>
+                            <constraint firstItem="Zvd-Z2-RWg" firstAttribute="top" secondItem="403-9V-cch" secondAttribute="bottom" constant="32.5" id="1wv-f0-k5J"/>
+                            <constraint firstItem="403-9V-cch" firstAttribute="leading" secondItem="Zvd-Z2-RWg" secondAttribute="leading" id="3Ao-Fd-GQQ"/>
+                            <constraint firstItem="zcg-6p-v6R" firstAttribute="trailing" secondItem="403-9V-cch" secondAttribute="trailing" id="3iN-VV-b4z"/>
+                            <constraint firstItem="403-9V-cch" firstAttribute="top" secondItem="zcg-6p-v6R" secondAttribute="bottom" constant="21" id="SMo-RN-8wC"/>
+                            <constraint firstItem="mkV-Vf-s27" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="85" id="bxM-fR-Mmt"/>
+                            <constraint firstItem="zcg-6p-v6R" firstAttribute="leading" secondItem="403-9V-cch" secondAttribute="leading" id="jdY-iK-KsO"/>
+                            <constraint firstItem="mkV-Vf-s27" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kLK-JR-Phc"/>
+                            <constraint firstItem="zcg-6p-v6R" firstAttribute="top" secondItem="mkV-Vf-s27" secondAttribute="bottom" constant="26" id="nEj-G9-URk"/>
+                            <constraint firstItem="mkV-Vf-s27" firstAttribute="trailing" secondItem="zcg-6p-v6R" secondAttribute="trailing" id="oLW-5w-JCu"/>
+                            <constraint firstItem="403-9V-cch" firstAttribute="trailing" secondItem="Zvd-Z2-RWg" secondAttribute="trailing" id="rre-Ns-iOE"/>
+                            <constraint firstItem="mkV-Vf-s27" firstAttribute="leading" secondItem="zcg-6p-v6R" secondAttribute="leading" id="vZ5-Bi-BGN"/>
+                            <constraint firstItem="mkV-Vf-s27" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="vvk-IX-hL2"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="busyActivityIndicator" destination="hhN-xP-ufz" id="8Gy-kE-NvG"/>
                         <outlet property="phoneNumberTextField" destination="403-9V-cch" id="M5V-kJ-D7m"/>
                     </connections>
                 </viewController>

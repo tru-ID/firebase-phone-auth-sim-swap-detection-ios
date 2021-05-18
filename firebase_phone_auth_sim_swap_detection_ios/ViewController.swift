@@ -10,10 +10,7 @@ import Firebase
 
 class ViewController: UIViewController {
     
-    
     @IBOutlet weak var phoneNumberTextField: UITextField!
-    @IBOutlet weak var busyActivityIndicator: UIActivityIndicatorView!
-    
     
     @IBAction func verify(_ sender: Any) {
         if let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
@@ -81,8 +78,6 @@ class ViewController: UIViewController {
     }
     
     func executeFirebasePhoneVerification() {
-        
-        //view.isUserInteractionEnabled = false
         if let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
             Auth.auth().languageCode = "en"
             PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { [weak self] (verificationID, error) in
