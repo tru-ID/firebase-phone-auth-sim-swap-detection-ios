@@ -135,7 +135,7 @@ Now that you have your Firebase project set up and your User Interface built up,
 1. You have already completed the **Before you begin** section and **Step 1** Enable Phone Number sign-in for your Firebase project, so proceed to **Step 2** Enable app verification:
 2. **Enable app verification**
 There are two ways for Firebase Authentication to accomplish to verify that phone number sign-in requests are coming from your app: 
-- [**Silent APNs notifications]**(https://firebase.google.com/docs/auth/ios/phone-auth?authuser=0#start-receiving-silent-notifications): You need to follow the guide for [Enable the Remote Notifications Capability](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/pushing_background_updates_to_your_app). Data-only cloud messaging only works on real devices where the app has background refresh enabled. If background refresh disabled, or if using the Simulator, app verification uses the fallback reCAPTCHA flow allowing you to check if it is configured correctly.
+- [**Silent APNs notifications**](https://firebase.google.com/docs/auth/ios/phone-auth?authuser=0#start-receiving-silent-notifications): You need to follow the guide for [Enable the Remote Notifications Capability](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/pushing_background_updates_to_your_app). Data-only cloud messaging only works on real devices where the app has background refresh enabled. If background refresh disabled, or if using the Simulator, app verification uses the fallback reCAPTCHA flow allowing you to check if it is configured correctly.
 
 To enable APNs notifications for use with Firebase Authentication:
 1. In Xcode, [enable push notifications](https://help.apple.com/xcode/mac/current/#/devdfd3d04a1) for your project.
@@ -270,10 +270,7 @@ self?.presentOTPTextEntry { (otpCode) in
 ```
 The user receives an Alert Notification either as "Sign in Success" when the OTP entered is valid or "There is something wrong with the OTP".
 
-Now you completed the code for authenticating with Firebase. Next, we need to call the `executeFirebasePhoneVerification()` method within the `verify` button `IBAction`
-
-//TODO declare and tell the developer about this function before. Icini doldurt. DONE
-
+Now you completed the code for authenticating with Firebase. Next, we need to call the `executeFirebasePhoneVerification()` method within the `verify` button `IBAction`.
 
 ## Adding SIM Swap Detection 
 At this point, we need to add SIM Swap detection to the application's workflow using SIMCheck before signing in to Firebase.
