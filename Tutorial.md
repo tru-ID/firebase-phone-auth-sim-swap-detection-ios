@@ -201,6 +201,8 @@ To do this, create a method for the Firebase Phone verification in `ViewControll
 
 **TODO: code was updated to check the phone number value within `verify` and then call `executeFirebasePhoneVerification`, passing a phone number**
 
+**TODO: I think we need some user feedback that something is happening. At least disable the textfield and button. Can we add a function to toggle this?**
+
 ```swift
 import Firebase
 
@@ -237,23 +239,11 @@ When you call `verifyPhoneNumber:UIDelegate:completion:`, Firebase sends a silen
 
 The call to `UserDefaults.standard.set` saves the verification ID so it can be restored when your app loads. By doing so, you can ensure that you still have a valid verification ID if your app is terminated before the user completes the sign-in flow (for example, while switching to the SMS app).
 
-If the call to `verifyPhoneNumber:UIDelegate:completion:` succeeds, you can prompt the user to type the verification code when they receive it via SMS message.
-
-**REVIEWED TO HERE**
+If the call to `verifyPhoneNumber:UIDelegate:completion:` succeeds you can prompt the user to type the verification code when they receive it via SMS message.
 
 ### Sign the User In
 
-After the user provides your app with the verification code from the SMS message, [sign the user in](https://firebase.google.com/docs/auth/ios/phone-auth#sign-in-the-user-with-the-verification-code) by creating a `FIRPhoneAuthCredential` object from the verification code and verification ID and passing that object to `signInWithCredential:completion:`.
-
-- Get the verification code from the user.
-- Create a `FIRPhoneAuthCredential` object from the verification code and verification ID.
-
-``` swift
-let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID, verificationCode: verificationCode)
-```
-
-Sign in the user with the `FIRPhoneAuthCredential` object:
-The function `presentOTPTextEntry` below enables the user to enter a One-Time-Passcode (OTP) sent by Firebase to a `UITextField` with `UIAlertController`.
+Add the following method to the `ViewController.swift` to prompt the user to enter their OTP code that has been sent via SMS:
 
 ```swift
 private func presentOTPTextEntry(completion: @escaping (String) -> Void) {
@@ -280,9 +270,15 @@ private func presentOTPTextEntry(completion: @escaping (String) -> Void) {
 }
 ```
 
-This `optCode` will be part of the Firebase credential in the following the code:
+Here, we dynamically build a UI with a `UITextField` for the OTP and buttons for "Continue" and "Cancel". Upon completion the value of the text field - the OTP - is returned.
+
+Update the `executeFirebasePhoneVerification` method to call the `presentOTPTextEntry` function and sign the user in:
 
 ```swift
+...
+
+UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+
 self?.presentOTPTextEntry { (otpCode) in
     let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
     
@@ -299,6 +295,7 @@ self?.presentOTPTextEntry { (otpCode) in
                 self?.present(alertController, animated: true, completion: nil)
                 return
             }
+
             //"Sign In Success"
             let alertController = UIAlertController(title: "Message", message: "Sign in Success", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
@@ -306,15 +303,28 @@ self?.presentOTPTextEntry { (otpCode) in
                 self?.dismiss(animated: true, completion: nil)
             }))
             self?.present(alertController, animated: true, completion: nil)
-            
         }
     }
 }
 ```
 
+After the user provides your app with the verification code from the SMS message, retrieve the stored `verificationID`.
+
+Then, with the verfication code stored in the `otpCode` variable, sign the user in by creating a `FIRPhoneAuthCredential` object (assigned to the `credentials` variable) from the verification code and verification ID and passing that object to `signInWithCredential:completion:`.
+
+``` swift
+let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID, verificationCode: otpCode)
+
+Auth.auth().signIn(with: credential) { result, error in
+
+...
+```
+
 The user receives an Alert Notification either as "Sign in Success" when the OTP entered is valid or "There is something wrong with the OTP".
 
 You have now completed the code for authenticating with Firebase.
+
+**REVIEWED TO HERE**
 
 ## Adding SIM Swap Detection
 
