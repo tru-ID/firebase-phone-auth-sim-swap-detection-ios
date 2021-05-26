@@ -15,7 +15,7 @@ You will need to:
 - Have an iPhone or an iPad with a SIM card 
 - Have [node.js](https://nodejs.org/en/download/) installed for the **tru.ID** CLI
 
-## Set-up the **tru.ID** CLI and Run a Development Server
+## Set-up the **tru.ID** CLI and run a development server
 
 First, create a [tru.ID Account](https://tru.id/signup). After signing up you'll land in the **tru.id** Console.
 
@@ -51,11 +51,11 @@ Run the development server by pointing it to the newly created project directory
 tru server --project-dir ./firebaseauthsimios
 ```
 
-Take a note of the local tunnel URL, which will be needed for configuring the sample project. The URL is in the format `https://{subdomain}.loca.lt.` This is the accessible public URL to your local development server. The development server is now ready and waiting to accept calls from the app. If your tunnel has ended, you can create a new one by repeating the final step.
+Take a note of the local tunnel URL, which will be needed for configuring the sample project. The URL is in the format `https://{subdomain}.loca.lt` This is the accessible public URL to your local development server. The development server is now ready and waiting to accept calls from the app. If your tunnel has ended, you can create a new one by repeating the final step.
 
 Now, we can continue with creating our new iOS project.
 
-## Create a New iOS Project
+## Create a new iOS project
 
 With the **tru.ID** account created and the development server up and running, we can start developing an application. You can skip this step if you already have an iOS project. Otherwise;
 
@@ -129,7 +129,7 @@ Follow the instructions at the official Firebase documentation to [Add Firebase 
 
 After completing all 5 steps, you're set to build the User Interface within your iOS Project.
 
-## Build the User Interface
+## Build the user interface
 
 Navigate to the `Main.storyboard`. You need to add a few UI components to receive input from the user, and provide feedback:
 
@@ -147,7 +147,6 @@ The view layout should look like this:
 Add a few configuration options for these UI components:
 
 - Phone number `UITextField:` Select the text field, and on the **Attributes Inspector**, scroll to `Text Input Traits` and change the `Content Type` to `Telephone Number`. Also, change the `Keyboard Type` to `Phone Pad`.
-- `UIImageView`: Select the `UIImageView`, and on the **Attributes Inspector**, scroll to Drawing, and check `Hidden` **TODO: there is no image. Should there be one?**
 
 Next, let's define Outlets in the ViewController so that you can control the UI state. Select `ViewController` in Xcode, and then by using the `⌥` select `Main.storyboard` file. Both `ViewController.swift` and `Main.storyboard` should be opened side by side.
 
@@ -159,7 +158,7 @@ You now have one last task to do related to the storyboard. Let's insert an acti
 
 ![Screenshot2](Screenshot02.png)
 
-## Add Firebase Phone Authentication
+## Add Firebase phone authentication
 
 Now that you have your Firebase project set up and your User Interface built up, you can start with enabling Phone Number sign-in for your Firebase project.
 
@@ -167,7 +166,7 @@ Select "Authentication" within your Firebase project. Select "Phone", click the 
 
 You have already completed the **Before you begin** section and **Step 1** Enable Phone Number sign-in for your Firebase project, so proceed to enabling app verification:
 
-### Enable App Verification
+### Enable app verification
 
 There are two ways for Firebase Authentication to accomplish verifying that a phone number sign-in requests are coming from your app:
 
@@ -193,11 +192,11 @@ To enable the Firebase SDK to use [reCAPTCHA verification](https://firebase.goog
 * Open your project configuration: double-click the project name in the left tree view. Select your app from the **TARGETS** section, then select the **Info** tab, and expand the **URL Types** section.
 * Click the + button, and add a URL scheme for your reversed client ID. To find this value, open the `GoogleService-Info.plist` configuration file, and look for the `REVERSED_CLIENT_ID` key. Copy the value of that key, and paste it into the **URL Schemes** box on the configuration page. Leave the other fields blank.
 
-### Send a Verification Code
+### Send a verification code
 
 With all the configuration set up we're in a position to write the code to [send a verification code to the user's phone](https://firebase.google.com/docs/auth/ios/phone-auth#send-a-verification-code-to-the-users-phone).
 
-To do this, create a method for the Firebase Phone verification in `ViewController.swift` named `executeFirebasePhoneVerification()` to be called when the `verify` button touched.
+To do this, create a method for the Firebase Phone verification in `ViewController.swift` named `executeFirebasePhoneVerification` to be called when the `verify` button touched.
 
 **TODO: code was updated to check the phone number value within `verify` and then call `executeFirebasePhoneVerification`, passing a phone number**
 
@@ -241,7 +240,7 @@ The call to `UserDefaults.standard.set` saves the verification ID so it can be r
 
 If the call to `verifyPhoneNumber:UIDelegate:completion:` succeeds you can prompt the user to type the verification code when they receive it via SMS message.
 
-### Sign the User In
+### Sign the user in
 
 Add the following method to the `ViewController.swift` to prompt the user to enter their OTP code that has been sent via SMS:
 
@@ -326,76 +325,16 @@ You have now completed the code for authenticating with Firebase.
 
 **REVIEWED TO HERE**
 
-## Adding SIM Swap Detection
+## Adding SIM swap detection with SIMCheck
 
-At this point, we need to add SIM Swap detection to the application's workflow using SIMCheck before signing in to Firebase.
+We're now ready to add SIM Swap detection to the application's workflow using SIMCheck before signing in to Firebase.
 
-For this we'll need to make an HTTP POST request to the `sim-check` endpoint (ie. localtunnel URL + /sim-check). The url will look like the following: `https://rotten-horse-35.loca.lt/sim-check`. In a production environment you should use your own servers.
-
-First, we create a method called `truIDSIMCheckVerification` that will be executed before the `executeFirebasePhoneVerification` method within the  `IBAction`  `Verify` button. This method will be taking the `phoneNumber` as a parameter and also a `completionHandler` closure with two parameters: result and error.
-
-If the user's SIM has changed recently, we display an Alert to the user. If the SIM hasn't changed, we perform the Firebase phone authentication.
-
-- Set up the request with `URLSession`. 
-Create a `session` constant with the shared `URLSession` instance, and set up a `URL` instance that refers to the development server URL. Then, with that `url`, create an instance of `URLRequest` and assign it to the `urlRequest` variable. For the purposes of this tutorial, it is safe to force-unwrap. On the last line, assign 'POST' to the `httpMethod`.
-
-```swift
-let session = URLSession.shared
-let url = URL(string: "https://rotten-horse-35.loca.lt/sim-check")!
-var urlRequest = URLRequest(url: url)
-urlRequest.httpMethod = "POST"
-```
-
-- Set up the request headers and body
-The header below indicates that the request type is JSON.
-
-```swift
-urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-```
-
-The request needs a body. In our case, it’ll be a JSON object. First, create a simple dictionary with some values.
-
-```swift
-let json = [ "phone_number": phoneNumber ]
-```
-
-Then, turn that dictionary into a `Data` object that uses the JSON format and assigns it to the `urlRequest`'s body.
-
-```swift
-let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
-urlRequest.httpBody = jsonData
-```
-
-- Make the request with `URLSessionDataTask`
-Next, you need to create a data task with the `dataTask(with:completionHandler:)` function of `URLSession`.
-
-```swift
-let task = session.dataTask(with: urlRequest) { data, response, error in
-//...
-}
-```
-
-The `dataTask(with:completionHandler:)` has two parameters: urlRequest (created earlier) and a completion handler which will be executed when the urlRequest completes ie. when a response has returned from the webserver.
-
-The closure also has three parameters:
-- the response `Data` object: to check out what data we receive from the webserver (jsonData)
-- a `URLResponse` object: gives more information about the request's response such as its encoding, length etc. 
-- an `Error` object: if an error occured while making the request, if no error occured it will be simply `nil`.
-
-The network request is executed by calling `task.resume()`and the completion handler is invoked at some point.
-
-- Properly validate the response data
-You need to validate the following: 
-- if any errors occured
-- if the HTTP response status code is as expected
-- if you get the data in the right format
-
-Here's the complete code within this method:
+Create a method called `truIDSIMCheckVerification`:
 
 ```swift
 func truIDSIMCheckVerification(phoneNumber: String, completionHandler: @escaping (Bool, Error?) -> Void) {
     let session = URLSession.shared
-    let url = URL(string: "https://{rotten-horse-35.loca.lt}/sim-check")!
+    let url = URL(string: "https://{subdomain}.loca.lt/sim-check")!
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = "POST"
     urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -438,9 +377,86 @@ func truIDSIMCheckVerification(phoneNumber: String, completionHandler: @escaping
 }
 ```
 
-## Finally
+There's a lot going on here so let's break it down.
 
-Now we need to update our UI to reflect the results. This update needs to be done on the main queue. Wrapping the UI related code in `DispatchQueue.main.async{ ... }` will ensure that all updates to the UI will be safely executed without causing any issues.
+We first make an HTTP POST request to the `sim-check` endpoint (i.e. localtunnel URL + /sim-check). The url will look like the following: `https://{subdomain}.loca.lt/sim-check`. In a production environment you should use your own servers.
+
+### Set up the request with `URLSession`
+
+We create a `session` constant with the shared `URLSession` instance, and set up a `URL` instance that refers to the development server URL. Then, with that `url`, create an instance of `URLRequest` and assign it to the `urlRequest` variable. For the purposes of this tutorial, it is safe to force-unwrap. On the last line, assign 'POST' to the `httpMethod`.
+
+```swift
+let session = URLSession.shared
+let url = URL(string: "https://{subdomain}.loca.lt/sim-check")!
+var urlRequest = URLRequest(url: url)
+urlRequest.httpMethod = "POST"
+```
+
+### Set up the request headers and body
+
+The header below indicates that the request type is JSON.
+
+```swift
+urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+```
+
+The request needs a body. In our case it’ll be a JSON object. We first create a simple dictionary with some values.
+
+```swift
+let json = [ "phone_number": phoneNumber ]
+```
+
+We then turn that dictionary into a `Data` object that uses the JSON format and assigns it to the `urlRequest`'s body.
+
+```swift
+let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
+urlRequest.httpBody = jsonData
+```
+
+### Make the request with `URLSessionDataTask`
+
+Next, we create a data task with the `dataTask(with:completionHandler:)` function of `URLSession`.
+
+```swift
+let task = session.dataTask(with: urlRequest) { data, response, error in
+//...
+}
+```
+
+The `dataTask(with:completionHandler:)` has two parameters: urlRequest (created earlier) and a completion handler which will be executed when the `urlRequest` completes (i.e. when a response has returned from the web server).
+
+### Handle the SIMCheck API result
+
+The closure also has three parameters:
+
+- the response `Data` object: to check out what data we receive from the webserver (jsonData)
+- a `URLResponse` object: gives more information about the request's response such as its encoding, length etc. 
+- an `Error` object: if an error occured while making the request, if no error occured it will be simply `nil`.
+ 
+If any errors occured, the HTTP responses is not a `200`, or there is a problem deserializing the response then call the `completionHandler` with `false` and the `error`.
+
+If the HTTP response is a `200` then determine whether the SIM card has changed:
+
+```swift
+if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String:Any]{
+    if let noSimChange = json["no_sim_change"] as? Bool {
+        
+        if noSimChange == true {
+            completionHandler(true, error)
+        } else {
+            completionHandler(false, error)
+        }
+    }
+}
+```
+
+A failed SIMCheck results in `false` being returned. A passed SIMCheck results in `true` being returned.
+
+The network request is executed by calling `task.resume()` and the completion handler is invoked when the network request completes or fails.
+
+## Integrate `truIDSIMCheckVerification`
+
+Finally, integrate the new `truIDSIMCheckVerification` method so it's executed before the `executeFirebasePhoneVerification` method within `verify` method.
 
 ```swift
 @IBAction func verify(_ sender: Any) {
@@ -448,7 +464,7 @@ Now we need to update our UI to reflect the results. This update needs to be don
         truIDSIMCheckVerification(phoneNumber: phoneNumber) { result, error in
             DispatchQueue.main.async {
                 if result == true {
-                    self.executeFirebasePhoneVerification()
+                    self.executeFirebasePhoneVerification(phoneNumber: phoneNumber)
                 } else {
                     let alertController = UIAlertController(title: "SIM Change Detected", message: "SIM changed too recently. Please contact support.", preferredStyle: UIAlertController.Style.alert)
                     alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
@@ -465,11 +481,17 @@ Now we need to update our UI to reflect the results. This update needs to be don
 }
 ```
 
-You’ve successfully integrated **tru.ID** SIMCheck with swap detection with your iOS application and can securely sign-in with your Phone on Firebase. 
+If the user's SIM has changed recently, we display an Alert to the user. If the SIM hasn't changed, we perform the Firebase phone authentication.
+
+UI updates need to be done on the main queue so are wrapped in `DispatchQueue.main.async{ ... }` which ensures that all updates to the UI will be safely executed without causing any issues.
+
+That's it! You’ve successfully integrated **tru.ID** SIMCheck with swap detection with your iOS application and can securely sign-in with your Phone on Firebase. 
 
 ## Where next?
 
 - The completed sample app can be found in the **tru.ID** [firebase-phone-auth-sim-swap-detection-ios)](https://github.com/tru-ID/firebase-phone-auth-sim-swap-detection-ios) GitHub repository.
+- [SIMCheck API reference](https://developer.tru.id/docs/reference/api#tag/sim_check)
+- [SIM Card Based Mobile Authentication with iOS tutorial](https://developer.tru.id/tutorials/ios-sim-card-mobile-auth)
 
 ## Troubleshooting
 
