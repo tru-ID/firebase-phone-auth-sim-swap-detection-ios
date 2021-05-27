@@ -47,14 +47,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="W7p-Bw-xFD">
+                                <rect key="frame" x="197" y="429" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="LHM-gt-oMp"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Zvd-Z2-RWg" firstAttribute="top" secondItem="403-9V-cch" secondAttribute="bottom" constant="32.5" id="1wv-f0-k5J"/>
                             <constraint firstItem="403-9V-cch" firstAttribute="leading" secondItem="Zvd-Z2-RWg" secondAttribute="leading" id="3Ao-Fd-GQQ"/>
+                            <constraint firstItem="W7p-Bw-xFD" firstAttribute="top" secondItem="Zvd-Z2-RWg" secondAttribute="bottom" constant="50" id="3Dm-nb-y2n"/>
                             <constraint firstItem="zcg-6p-v6R" firstAttribute="trailing" secondItem="403-9V-cch" secondAttribute="trailing" id="3iN-VV-b4z"/>
+                            <constraint firstItem="W7p-Bw-xFD" firstAttribute="centerX" secondItem="Zvd-Z2-RWg" secondAttribute="centerX" id="O7x-uu-BfY"/>
                             <constraint firstItem="403-9V-cch" firstAttribute="top" secondItem="zcg-6p-v6R" secondAttribute="bottom" constant="21" id="SMo-RN-8wC"/>
+                            <constraint firstItem="W7p-Bw-xFD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="197" id="UH6-9a-uT5"/>
                             <constraint firstItem="mkV-Vf-s27" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="85" id="bxM-fR-Mmt"/>
                             <constraint firstItem="zcg-6p-v6R" firstAttribute="leading" secondItem="403-9V-cch" secondAttribute="leading" id="jdY-iK-KsO"/>
                             <constraint firstItem="mkV-Vf-s27" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kLK-JR-Phc"/>
@@ -66,7 +75,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="busyActivityIndicator" destination="W7p-Bw-xFD" id="gEO-uf-UbS"/>
                         <outlet property="phoneNumberTextField" destination="403-9V-cch" id="M5V-kJ-D7m"/>
+                        <outlet property="verifyButton" destination="Zvd-Z2-RWg" id="OCe-md-buO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

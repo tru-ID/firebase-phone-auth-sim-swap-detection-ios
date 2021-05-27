@@ -12,12 +12,19 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var phoneNumberTextField: UITextField!
     
+    @IBOutlet weak var busyActivityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var verifyButton: UIButton!
+    
+    
     @IBAction func verify(_ sender: Any) {
         if let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
+            controls(enabled: false)
             truIDSIMCheckVerification(phoneNumber: phoneNumber) { result, error in
                 DispatchQueue.main.async {
                     if result == true {
-                        self.executeFirebasePhoneVerification()
+                        self.executeFirebasePhoneVerification(phoneNumber: phoneNumber)
+                    
                     } else {
                         let alertController = UIAlertController(title: "SIM Change Detected", message: "SIM changed too recently. Please contact support.", preferredStyle: UIAlertController.Style.alert)
                         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
@@ -28,6 +35,7 @@ class ViewController: UIViewController {
                         self.present(alertController, animated: true, completion: nil)
                         
                     }
+                    self.controls(enabled: true)
                 }
             }
         }
@@ -77,7 +85,7 @@ class ViewController: UIViewController {
         task.resume()
     }
     
-    func executeFirebasePhoneVerification() {
+    func executeFirebasePhoneVerification(phoneNumber: String) {
         if let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
             Auth.auth().languageCode = "en"
             PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { [weak self] (verificationID, error) in
@@ -123,6 +131,19 @@ class ViewController: UIViewController {
             }
             
         }
+    }
+    
+    private func controls(enabled: Bool) {
+
+        if enabled {
+            busyActivityIndicator.stopAnimating()
+        } else {
+            busyActivityIndicator.startAnimating()
+        }
+
+        phoneNumberTextField.isEnabled = enabled
+        verifyButton.isEnabled = enabled
+        
     }
     
     override func viewDidLoad() {
