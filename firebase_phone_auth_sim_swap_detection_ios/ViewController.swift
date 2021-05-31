@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Firebase
+ import Firebase
 
 class ViewController: UIViewController {
     
@@ -16,15 +16,15 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var verifyButton: UIButton!
     
-    
     @IBAction func verify(_ sender: Any) {
         if let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
             controls(enabled: false)
+            self.executeFirebasePhoneVerification(phoneNumber: phoneNumber)
+            /*
             truIDSIMCheckVerification(phoneNumber: phoneNumber) { result, error in
                 DispatchQueue.main.async {
                     if result == true {
                         self.executeFirebasePhoneVerification(phoneNumber: phoneNumber)
-                    
                     } else {
                         let alertController = UIAlertController(title: "SIM Change Detected", message: "SIM changed too recently. Please contact support.", preferredStyle: UIAlertController.Style.alert)
                         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
@@ -33,17 +33,18 @@ class ViewController: UIViewController {
                             self.dismiss(animated: true, completion: nil)
                         }))
                         self.present(alertController, animated: true, completion: nil)
-                        
+                        self.controls(enabled: true)
                     }
-                    self.controls(enabled: true)
                 }
+               
             }
+            */
         }
     }
     
     func truIDSIMCheckVerification(phoneNumber: String, completionHandler: @escaping (Bool, Error?) -> Void) {
         let session = URLSession.shared
-        let url = URL(string: "https://rotten-horse-35.loca.lt/sim-check")!
+        let url = URL(string: "https://horrible-ladybug-15.loca.lt/sim-check")!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -86,7 +87,7 @@ class ViewController: UIViewController {
     }
     
     func executeFirebasePhoneVerification(phoneNumber: String) {
-        if let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
+       
             Auth.auth().languageCode = "en"
             PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { [weak self] (verificationID, error) in
                 if let error = error {
@@ -95,9 +96,10 @@ class ViewController: UIViewController {
                         self?.dismiss(animated: true, completion: nil)
                     }))
                     self?.present(alertController, animated: true, completion: nil)
+                    self?.controls(enabled: true)
                     return
                 }
-                
+
                 //Save in case the app is terminated.
                 UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
                 
@@ -115,6 +117,7 @@ class ViewController: UIViewController {
                                     self?.dismiss(animated: true, completion: nil)
                                 }))
                                 self?.present(alertController, animated: true, completion: nil)
+                                self?.controls(enabled: true)
                                 return
                             }
                             //"Sign In Success"
@@ -124,26 +127,21 @@ class ViewController: UIViewController {
                                 self?.dismiss(animated: true, completion: nil)
                             }))
                             self?.present(alertController, animated: true, completion: nil)
-                            
+                            self?.controls(enabled: true)
                         }
                     }
                 }
             }
-            
-        }
     }
     
     private func controls(enabled: Bool) {
-
         if enabled {
             busyActivityIndicator.stopAnimating()
         } else {
             busyActivityIndicator.startAnimating()
         }
-
         phoneNumberTextField.isEnabled = enabled
         verifyButton.isEnabled = enabled
-        
     }
     
     override func viewDidLoad() {
