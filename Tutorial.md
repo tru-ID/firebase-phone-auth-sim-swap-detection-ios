@@ -318,6 +318,7 @@ self?.presentOTPTextEntry { (otpCode) in
                     self?.dismiss(animated: true, completion: nil)
                 }))
                 self?.present(alertController, animated: true, completion: nil)
+                self?.controls(enabled: true)
                 return
             }
 
@@ -328,6 +329,7 @@ self?.presentOTPTextEntry { (otpCode) in
                 self?.dismiss(animated: true, completion: nil)
             }))
             self?.present(alertController, animated: true, completion: nil)
+            self?.controls(enabled: true)
         }
     }
 }
