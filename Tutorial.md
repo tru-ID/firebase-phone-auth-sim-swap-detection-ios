@@ -487,6 +487,10 @@ UI updates need to be done on the main queue so are wrapped in `DispatchQueue.ma
 
 That's it! You’ve successfully integrated **tru.ID** SIMCheck with swap detection with your iOS application and can securely sign-in with your Phone on Firebase. 
 
+
+[Phone Check](https://user-images.githubusercontent.com/72924126/120204249-802b5e80-c220-11eb-8ceb-4e8f7eb4015a.MP4)
+
+
 ## Where next?
 
 - The completed sample app can be found in the **tru.ID** [firebase-phone-auth-sim-swap-detection-ios)](https://github.com/tru-ID/firebase-phone-auth-sim-swap-detection-ios) GitHub repository.
