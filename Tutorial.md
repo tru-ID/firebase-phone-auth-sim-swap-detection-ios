@@ -164,7 +164,7 @@ You now have one last task to do related to the storyboard. Let's insert an acti
 
 ![Screenshot2](Screenshot02.png)
 
-It is time to write some code to manage the UI state. The method you are going to add is controls(enabled: Bool). This method helps us show or hide the busyActivityIndicator. You should also disable the phoneNumberTextField when the FirebasePhoneAuthentication/SIMCheck flow is in progress.
+It is time to write some code to manage the UI state. The method you are going to add is `controls(enabled: Bool)`. This method helps us show or hide the `busyActivityIndicator`. You should also disable the `phoneNumberTextField` when the FirebasePhoneAuthentication/SIMCheck flow is in progress.
 ```swift
 private func controls(enabled: Bool) {
     if enabled {
@@ -261,7 +261,7 @@ The call to `UserDefaults.standard.set` saves the verification ID so it can be r
 
 If the call to `verifyPhoneNumber:UIDelegate:completion:` succeeds you can prompt the user to type the verification code when they receive it via SMS message.
 
-You restore the UI controls back to their original state siwth the following code so that the use can re-execute the workflow, if needed:
+You restore the UI controls back to their original state with the following code so that the user can re-execute the workflow, if needed:
 ```swift
 self?.controls(enabled:true)
 ```
@@ -271,7 +271,7 @@ self?.controls(enabled:true)
 Add the following method to the `ViewController.swift` to prompt the user to enter their OTP code that has been sent via SMS:
 
 ```swift
-private func presentOTPTextEntry(completion: @escaping (String) -> Void) {
+private func presentOTPTextEntry(completion: @escaping (String?) -> Void) {
     
     let OTPTextEntry = UIAlertController(
         title: "Sign in with Phone Auth",
@@ -288,14 +288,18 @@ private func presentOTPTextEntry(completion: @escaping (String) -> Void) {
         completion(text)
     }
     
+    let onCancel: (UIAlertAction) -> Void = {_ in
+        completion(nil)
+    }
+    
     OTPTextEntry.addAction(UIAlertAction(title: "Continue", style: .default, handler: onContinue))
-    OTPTextEntry.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+    OTPTextEntry.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: onCancel))
     
     present(OTPTextEntry, animated: true, completion: nil)
 }
 ```
 
-Here, we dynamically build a UI with a `UITextField` for the OTP and buttons for "Continue" and "Cancel". Upon completion the value of the text field - the OTP - is returned.
+Here, we create an Alert dialog message with "Continue" and "Cancel" buttons with Action handlers  and a `UITextField` for the OTP. Upon completion the value of the text field - the OTP - is returned.
 
 Update the `executeFirebasePhoneVerification` method to call the `presentOTPTextEntry` function and sign the user in:
 
@@ -307,9 +311,9 @@ UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
 self?.presentOTPTextEntry { (otpCode) in
     let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
     
-    if !otpCode.isEmpty, let verificationID = verificationID {
+    if let code = otpCode, !code.isEmpty, let verificationID = verificationID {
         
-        let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID, verificationCode: otpCode)
+        let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID, verificationCode: code)
         
         Auth.auth().signIn(with: credential) { result, error in
             guard error == nil else {
@@ -331,13 +335,15 @@ self?.presentOTPTextEntry { (otpCode) in
             self?.present(alertController, animated: true, completion: nil)
             self?.controls(enabled: true)
         }
+    } else {
+    self?.controls(enabled: true)
     }
 }
 ```
 
 After the user provides your app with the verification code from the SMS message, retrieve the stored `verificationID`.
 
-Then, with the verfication code stored in the `otpCode` variable, sign the user in by creating a `FIRPhoneAuthCredential` object (assigned to the `credentials` variable) from the verification code and verification ID and passing that object to `signInWithCredential:completion:`.
+Then, with the verification code stored in the `otpCode` variable, sign the user in by creating a `FIRPhoneAuthCredential` object (assigned to the `credentials` variable) from the verification code and verification ID and passing that object to `signInWithCredential:completion:`.
 
 ``` swift
 let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID, verificationCode: otpCode)
@@ -348,6 +354,7 @@ Auth.auth().signIn(with: credential) { result, error in
 ```
 
 The user receives an Alert Notification either as "Sign in Success" when the OTP entered is valid or "There is something wrong with the OTP".
+
 
 You have now completed the code for authenticating with Firebase.
 
@@ -477,7 +484,6 @@ if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [St
     }
 }
 ```
-
 A failed SIMCheck results in `false` being returned. A passed SIMCheck results in `true` being returned.
 
 The network request is executed by calling `task.resume()` and the completion handler is invoked when the network request completes or fails.
@@ -489,6 +495,7 @@ Finally, integrate the new `truIDSIMCheckVerification` method so it's executed b
 ```swift
 @IBAction func verify(_ sender: Any) {
     if let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
+        controls(enabled: false)
         truIDSIMCheckVerification(phoneNumber: phoneNumber) { result, error in
             DispatchQueue.main.async {
                 if result == true {
@@ -501,7 +508,7 @@ Finally, integrate the new `truIDSIMCheckVerification` method so it's executed b
                         self.dismiss(animated: true, completion: nil)
                     }))
                     self.present(alertController, animated: true, completion: nil)
-                    
+                    self.controls(enabled: true)
                 }
             }
         }
@@ -512,6 +519,8 @@ Finally, integrate the new `truIDSIMCheckVerification` method so it's executed b
 If the user's SIM has changed recently, we display an Alert to the user. If the SIM hasn't changed, we perform the Firebase phone authentication.
 
 UI updates need to be done on the main queue so are wrapped in `DispatchQueue.main.async{ ... }` which ensures that all updates to the UI will be safely executed without causing any issues.
+ 
+ You also restore the UI controls back to their original state as before so that the user can re-execute the workflow if needed.
 
 That's it! You’ve successfully integrated **tru.ID** SIMCheck with swap detection with your iOS application and can securely sign-in with your Phone on Firebase. 
 

@@ -19,12 +19,11 @@ class ViewController: UIViewController {
     @IBAction func verify(_ sender: Any) {
         if let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
             controls(enabled: false)
-            self.executeFirebasePhoneVerification(phoneNumber: phoneNumber)
-            /*
             truIDSIMCheckVerification(phoneNumber: phoneNumber) { result, error in
                 DispatchQueue.main.async {
                     if result == true {
                         self.executeFirebasePhoneVerification(phoneNumber: phoneNumber)
+                        print("success")
                     } else {
                         let alertController = UIAlertController(title: "SIM Change Detected", message: "SIM changed too recently. Please contact support.", preferredStyle: UIAlertController.Style.alert)
                         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
@@ -38,13 +37,13 @@ class ViewController: UIViewController {
                 }
                
             }
-            */
+    
         }
     }
     
     func truIDSIMCheckVerification(phoneNumber: String, completionHandler: @escaping (Bool, Error?) -> Void) {
         let session = URLSession.shared
-        let url = URL(string: "https://horrible-ladybug-15.loca.lt/sim-check")!
+        let url = URL(string: "https://blue-moth-54.loca.lt/sim-check")!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -87,7 +86,6 @@ class ViewController: UIViewController {
     }
     
     func executeFirebasePhoneVerification(phoneNumber: String) {
-       
             Auth.auth().languageCode = "en"
             PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { [weak self] (verificationID, error) in
                 if let error = error {
@@ -106,9 +104,9 @@ class ViewController: UIViewController {
                 self?.presentOTPTextEntry { (otpCode) in
                     let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
                     
-                    if !otpCode.isEmpty, let verificationID = verificationID {
+                    if let code = otpCode, !code.isEmpty, let verificationID = verificationID {
                         
-                        let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID, verificationCode: otpCode)
+                        let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID, verificationCode: code)
                         
                         Auth.auth().signIn(with: credential) { result, error in
                             guard error == nil else {
@@ -129,6 +127,8 @@ class ViewController: UIViewController {
                             self?.present(alertController, animated: true, completion: nil)
                             self?.controls(enabled: true)
                         }
+                    } else {
+                        self?.controls(enabled: true)
                     }
                 }
             }
@@ -148,7 +148,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    private func presentOTPTextEntry(completion: @escaping (String) -> Void) {
+    private func presentOTPTextEntry(completion: @escaping (String?) -> Void) {
         
         let OTPTextEntry = UIAlertController(
             title: "Sign in with Phone Auth",
@@ -165,8 +165,12 @@ class ViewController: UIViewController {
             completion(text)
         }
         
+        let onCancel: (UIAlertAction) -> Void = {_ in
+            completion(nil)
+        }
+        
         OTPTextEntry.addAction(UIAlertAction(title: "Continue", style: .default, handler: onContinue))
-        OTPTextEntry.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        OTPTextEntry.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: onCancel))
         
         present(OTPTextEntry, animated: true, completion: nil)
     }
