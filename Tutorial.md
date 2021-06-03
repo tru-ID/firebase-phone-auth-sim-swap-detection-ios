@@ -137,7 +137,7 @@ Navigate to the `Main.storyboard`. You need to add a few UI components to receiv
 - A `UILabel` with a text "Phone number" to indicate what the next text field is for
 - A `UITextField` so that the user can enter their phone number
 - A `UIButton` with the text "Verify" to trigger the SIMCheck request
-- A `UIActivityIndicator`  to inform User (Large) to show/hide progress when you perform a SIMCheck
+- A `UIActivityIndicator` (Large) as a work in progress feedback indicator to the user when you perform a SIMCheck
 
 All UI components are "Horizontally" aligned in the container using constraints. You should also define constraints to anchor the components as well. You can use Reset to Suggested Constraints within Resolve Auto Layout Issues.
 
@@ -164,7 +164,8 @@ You now have one last task to do related to the storyboard. Let's insert an acti
 
 ![Screenshot2](Screenshot02.png)
 
-It is time to write some code to manage the UI state. The method you are going to add is controls(enabled: Bool). This method helps us show or hide the busyActivityIndicator. You should also disable the phoneNumberTextField when the FirebasePhoneAuthentication/SIMCheck flow is in progress.
+It is time to write some code to manage the UI state. Add the following to `ViewController.swift`:
+
 ```swift
 private func controls(enabled: Bool) {
     if enabled {
@@ -176,7 +177,9 @@ private func controls(enabled: Bool) {
     verifyButton.isEnabled = enabled
 }
 ```
-You will use this method later in the `verify(_ sender: Any)` that is triggered by the user tapping the `Verify` button.
+
+ This method helps us show or hide the `busyActivityIndicator`. It also disables the `phoneNumberTextField` and `verifyButton` when the FirebasePhoneAuthentication/SIMCheck flow is in progress. You will use this method later in the `verify(_ sender: Any)` method.
+
 ## Add Firebase phone authentication
 
 Now that you have your Firebase project set up and your User Interface built up, you can start with enabling Phone Number sign-in for your Firebase project.
@@ -228,12 +231,14 @@ import Firebase
 @IBAction func verify(_ sender: Any) {
     if let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
         controls(enabled: false)
+
         self.executeFirebasePhoneVerification(phoneNumber: phoneNumber)
     }
 }
 
 func executeFirebasePhoneVerification(phoneNumber: String) {
     Auth.auth().languageCode = "en"
+
     PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { [weak self] (verificationID, error) in
         if let error = error {
         // An Alert is created to notify the User for errors.
@@ -241,17 +246,21 @@ func executeFirebasePhoneVerification(phoneNumber: String) {
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
                 self?.dismiss(animated: true, completion: nil)
             }))
+
             self?.present(alertController, animated: true, completion: nil)
             self?.controls(enabled: true)
+
             return
         }
+
         UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
     }
 }
 ```
 
 The `verify` method in the above code gets the user's phone number from the `phoneNumberTextField`, checks the value and calls `executeFirebasePhoneVerification`.
-The next step is to use the previously created `controls` method by setting the `enabled` variable to `false` in order to disable the phone number text field and the verify button, show the activity indicator and start spinning it when the user taps the **Verify** button. 
+
+The next step within `verify` is to use the previously created `controls` method by setting the `enabled` variable to `false` in order to disable the phone number text field and the verify button, show the activity indicator and start spinning it when the user taps the **Verify** button. 
 
 Within `executeFirebasePhoneVerification` the auth language is set to English and `verifyPhoneNumber:UIDelegate:completion:` is called, passing to it the phone number.
 
@@ -261,7 +270,8 @@ The call to `UserDefaults.standard.set` saves the verification ID so it can be r
 
 If the call to `verifyPhoneNumber:UIDelegate:completion:` succeeds you can prompt the user to type the verification code when they receive it via SMS message.
 
-You restore the UI controls back to their original state siwth the following code so that the use can re-execute the workflow, if needed:
+You restore the UI controls back to their original state with the following code so that the user can re-execute the workflow if needed:
+
 ```swift
 self?.controls(enabled:true)
 ```
@@ -317,8 +327,10 @@ self?.presentOTPTextEntry { (otpCode) in
                 alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
                     self?.dismiss(animated: true, completion: nil)
                 }))
+
                 self?.present(alertController, animated: true, completion: nil)
                 self?.controls(enabled: true)
+
                 return
             }
 
@@ -489,6 +501,9 @@ Finally, integrate the new `truIDSIMCheckVerification` method so it's executed b
 ```swift
 @IBAction func verify(_ sender: Any) {
     if let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
+
+        controls(enabled: false)
+
         truIDSIMCheckVerification(phoneNumber: phoneNumber) { result, error in
             DispatchQueue.main.async {
                 if result == true {
