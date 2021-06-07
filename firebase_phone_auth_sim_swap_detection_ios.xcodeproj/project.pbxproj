@@ -1,0 +1,424 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C445B123263815DD00B38E90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C445B122263815DD00B38E90 /* AppDelegate.swift */; };
+		C445B125263815DD00B38E90 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C445B124263815DD00B38E90 /* SceneDelegate.swift */; };
+		C445B127263815DD00B38E90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C445B126263815DD00B38E90 /* ViewController.swift */; };
+		C445B12A263815DD00B38E90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C445B128263815DD00B38E90 /* Main.storyboard */; };
+		C445B12C263815E300B38E90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C445B12B263815E300B38E90 /* Assets.xcassets */; };
+		C445B12F263815E300B38E90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C445B12D263815E300B38E90 /* LaunchScreen.storyboard */; };
+		C45A9AD326398F4C00B48C52 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45A9AD226398F4C00B48C52 /* GoogleService-Info.plist */; };
+		C8C62789173A98EAA1C3AA1E /* Pods_firebase_phone_auth_sim_swap_detection_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B16BBDF76CF432C167A303 /* Pods_firebase_phone_auth_sim_swap_detection_ios.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		63B16BBDF76CF432C167A303 /* Pods_firebase_phone_auth_sim_swap_detection_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_firebase_phone_auth_sim_swap_detection_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5166F9FFF7DD5DD1E1D8D7C /* Pods-firebase_phone_auth_sim_swap_detection_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-firebase_phone_auth_sim_swap_detection_ios.release.xcconfig"; path = "Target Support Files/Pods-firebase_phone_auth_sim_swap_detection_ios/Pods-firebase_phone_auth_sim_swap_detection_ios.release.xcconfig"; sourceTree = "<group>"; };
+		C445B11F263815DD00B38E90 /* firebase_phone_auth_sim_swap_detection_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = firebase_phone_auth_sim_swap_detection_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C445B122263815DD00B38E90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C445B124263815DD00B38E90 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C445B126263815DD00B38E90 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C445B129263815DD00B38E90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C445B12B263815E300B38E90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C445B12E263815E300B38E90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C445B130263815E300B38E90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C445B14A2639849D00B38E90 /* firebase_phone_auth_sim_swap_detection_ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = firebase_phone_auth_sim_swap_detection_ios.entitlements; sourceTree = "<group>"; };
+		C45A9AD226398F4C00B48C52 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ED04B5571F33307D451A7954 /* Pods-firebase_phone_auth_sim_swap_detection_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-firebase_phone_auth_sim_swap_detection_ios.debug.xcconfig"; path = "Target Support Files/Pods-firebase_phone_auth_sim_swap_detection_ios/Pods-firebase_phone_auth_sim_swap_detection_ios.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C445B11C263815DD00B38E90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C8C62789173A98EAA1C3AA1E /* Pods_firebase_phone_auth_sim_swap_detection_ios.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		512AA6D04BA4D135525E6D79 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ED04B5571F33307D451A7954 /* Pods-firebase_phone_auth_sim_swap_detection_ios.debug.xcconfig */,
+				B5166F9FFF7DD5DD1E1D8D7C /* Pods-firebase_phone_auth_sim_swap_detection_ios.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C445B116263815DD00B38E90 = {
+			isa = PBXGroup;
+			children = (
+				C445B121263815DD00B38E90 /* firebase_phone_auth_sim_swap_detection_ios */,
+				C445B120263815DD00B38E90 /* Products */,
+				512AA6D04BA4D135525E6D79 /* Pods */,
+				C78B10C84BACA4D39FEE658A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C445B120263815DD00B38E90 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C445B11F263815DD00B38E90 /* firebase_phone_auth_sim_swap_detection_ios.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C445B121263815DD00B38E90 /* firebase_phone_auth_sim_swap_detection_ios */ = {
+			isa = PBXGroup;
+			children = (
+				C445B14A2639849D00B38E90 /* firebase_phone_auth_sim_swap_detection_ios.entitlements */,
+				C445B122263815DD00B38E90 /* AppDelegate.swift */,
+				C445B124263815DD00B38E90 /* SceneDelegate.swift */,
+				C445B126263815DD00B38E90 /* ViewController.swift */,
+				C445B128263815DD00B38E90 /* Main.storyboard */,
+				C445B12B263815E300B38E90 /* Assets.xcassets */,
+				C445B12D263815E300B38E90 /* LaunchScreen.storyboard */,
+				C45A9AD226398F4C00B48C52 /* GoogleService-Info.plist */,
+				C445B130263815E300B38E90 /* Info.plist */,
+			);
+			path = firebase_phone_auth_sim_swap_detection_ios;
+			sourceTree = "<group>";
+		};
+		C78B10C84BACA4D39FEE658A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				63B16BBDF76CF432C167A303 /* Pods_firebase_phone_auth_sim_swap_detection_ios.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C445B11E263815DD00B38E90 /* firebase_phone_auth_sim_swap_detection_ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C445B133263815E300B38E90 /* Build configuration list for PBXNativeTarget "firebase_phone_auth_sim_swap_detection_ios" */;
+			buildPhases = (
+				71E51FD5CFDF3876C7E9655F /* [CP] Check Pods Manifest.lock */,
+				C445B11B263815DD00B38E90 /* Sources */,
+				C445B11C263815DD00B38E90 /* Frameworks */,
+				C445B11D263815DD00B38E90 /* Resources */,
+				14E96A6016B90819A089098E /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = firebase_phone_auth_sim_swap_detection_ios;
+			productName = firebase_phone_auth_sim_swap_detection_ios;
+			productReference = C445B11F263815DD00B38E90 /* firebase_phone_auth_sim_swap_detection_ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C445B117263815DD00B38E90 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					C445B11E263815DD00B38E90 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = C445B11A263815DD00B38E90 /* Build configuration list for PBXProject "firebase_phone_auth_sim_swap_detection_ios" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C445B116263815DD00B38E90;
+			productRefGroup = C445B120263815DD00B38E90 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C445B11E263815DD00B38E90 /* firebase_phone_auth_sim_swap_detection_ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C445B11D263815DD00B38E90 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C445B12F263815E300B38E90 /* LaunchScreen.storyboard in Resources */,
+				C45A9AD326398F4C00B48C52 /* GoogleService-Info.plist in Resources */,
+				C445B12C263815E300B38E90 /* Assets.xcassets in Resources */,
+				C445B12A263815DD00B38E90 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		14E96A6016B90819A089098E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-firebase_phone_auth_sim_swap_detection_ios/Pods-firebase_phone_auth_sim_swap_detection_ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-firebase_phone_auth_sim_swap_detection_ios/Pods-firebase_phone_auth_sim_swap_detection_ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-firebase_phone_auth_sim_swap_detection_ios/Pods-firebase_phone_auth_sim_swap_detection_ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		71E51FD5CFDF3876C7E9655F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-firebase_phone_auth_sim_swap_detection_ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C445B11B263815DD00B38E90 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C445B127263815DD00B38E90 /* ViewController.swift in Sources */,
+				C445B123263815DD00B38E90 /* AppDelegate.swift in Sources */,
+				C445B125263815DD00B38E90 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C445B128263815DD00B38E90 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C445B129263815DD00B38E90 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C445B12D263815E300B38E90 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C445B12E263815E300B38E90 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C445B131263815E300B38E90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C445B132263815E300B38E90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C445B134263815E300B38E90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED04B5571F33307D451A7954 /* Pods-firebase_phone_auth_sim_swap_detection_ios.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = firebase_phone_auth_sim_swap_detection_ios/firebase_phone_auth_sim_swap_detection_ios.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TYCT88ZT59;
+				INFOPLIST_FILE = firebase_phone_auth_sim_swap_detection_ios/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "id.tru.sample.firebase-phone-auth-sim-swap-detection-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C445B135263815E300B38E90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5166F9FFF7DD5DD1E1D8D7C /* Pods-firebase_phone_auth_sim_swap_detection_ios.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = firebase_phone_auth_sim_swap_detection_ios/firebase_phone_auth_sim_swap_detection_ios.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TYCT88ZT59;
+				INFOPLIST_FILE = firebase_phone_auth_sim_swap_detection_ios/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "id.tru.sample.firebase-phone-auth-sim-swap-detection-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C445B11A263815DD00B38E90 /* Build configuration list for PBXProject "firebase_phone_auth_sim_swap_detection_ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C445B131263815E300B38E90 /* Debug */,
+				C445B132263815E300B38E90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C445B133263815E300B38E90 /* Build configuration list for PBXNativeTarget "firebase_phone_auth_sim_swap_detection_ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C445B134263815E300B38E90 /* Debug */,
+				C445B135263815E300B38E90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C445B117263815DD00B38E90 /* Project object */;
+}
