@@ -16,24 +16,29 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var verifyButton: UIButton!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     @IBAction func verify(_ sender: Any) {
-        if let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
+        
+        if var phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty {
+            phoneNumber = phoneNumber.replacingOccurrences(of: "\\s*", with: "", options: [.regularExpression])
             controls(enabled: false)
-            truIDSIMCheckVerification(phoneNumber: phoneNumber) { result, error in
+            truIDSIMCheckVerification(phoneNumber: phoneNumber) { [weak self] result, error in
                 DispatchQueue.main.async {
-                    if result == true {
-                        self.executeFirebasePhoneVerification(phoneNumber: phoneNumber)
-                        print("success")
-                    } else {
-                        let alertController = UIAlertController(title: "SIM Change Detected", message: "SIM changed too recently. Please contact support.", preferredStyle: UIAlertController.Style.alert)
-                        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
-                            print("OK button pressed")
-                            //Shall we dismiss the Alert or leave it there?
-                            self.dismiss(animated: true, completion: nil)
-                        }))
-                        self.present(alertController, animated: true, completion: nil)
-                        self.controls(enabled: true)
+                    
+                    if let err = error as? AppError {
+                        self?.displayAlert(title: "Error", message: "App Error: \(err.rawValue)")
+                        return
                     }
+                    
+                    if result == true {
+                        self?.executeFirebasePhoneVerification(phoneNumber: phoneNumber)
+                    } else {
+                        self?.displayAlert(title: "SIM Change Detected", message: "SIM changed too recently. Please contact support.")
+                    }
+                    
                 }
                
             }
@@ -43,7 +48,7 @@ class ViewController: UIViewController {
     
     func truIDSIMCheckVerification(phoneNumber: String, completionHandler: @escaping (Bool, Error?) -> Void) {
         let session = URLSession.shared
-        let url = URL(string: "https://blue-moth-54.loca.lt/sim-check")!
+        let url = URL(string: "https://tough-mouse-62.loca.lt/sim-check")!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -59,29 +64,29 @@ class ViewController: UIViewController {
             }
             
             let httpResponse = response as! HTTPURLResponse
-            if httpResponse.statusCode == 200 {
+            if (200...299) ~= httpResponse.statusCode {
                 print(String(data: data!, encoding: .utf8)!)
                 do {
                     if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String:Any]{
                         if let noSimChange = json["no_sim_change"] as? Bool {
-                            
-                            if noSimChange == true {
-                                completionHandler(true, error)
-                            } else {
-                                completionHandler(false, error)
-                            }
+                            completionHandler(noSimChange, nil)
+                        } else {
+                            completionHandler(false, AppError.NoData)
                         }
                     }
                     
                 } catch {
-                    completionHandler(false, error)
+                    completionHandler(false, AppError.DecodingIssue)
                     print("JSON error: \(error.localizedDescription)")
                 }
-            } else {
-                completionHandler(false, error)
+            } else if (400...500) ~= httpResponse.statusCode {
+                completionHandler(false, AppError.BadRequest)
                 print("There is an error \(httpResponse)")
+            } else {
+                completionHandler(false, AppError.Other)
             }
         }
+        
         task.resume()
     }
     
@@ -89,15 +94,9 @@ class ViewController: UIViewController {
             Auth.auth().languageCode = "en"
             PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { [weak self] (verificationID, error) in
                 if let error = error {
-                    let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
-                        self?.dismiss(animated: true, completion: nil)
-                    }))
-                    self?.present(alertController, animated: true, completion: nil)
-                    self?.controls(enabled: true)
+                    self?.displayAlert(title: "Error", message: error.localizedDescription)
                     return
                 }
-
                 //Save in case the app is terminated.
                 UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
                 
@@ -109,43 +108,18 @@ class ViewController: UIViewController {
                         let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID, verificationCode: code)
                         
                         Auth.auth().signIn(with: credential) { result, error in
-                            guard error == nil else {
-                                let alertController = UIAlertController(title: "Error", message: "There is something wrong with the OTP", preferredStyle: UIAlertController.Style.alert)
-                                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
-                                    self?.dismiss(animated: true, completion: nil)
-                                }))
-                                self?.present(alertController, animated: true, completion: nil)
-                                self?.controls(enabled: true)
-                                return
+                            if let error = error {
+                                self?.displayAlert(title: "Error", message: error.localizedDescription)
+                            } else {
+                                //"Sign In Success"
+                                self?.displayAlert(title: "Message", message: "Sign in Success")
                             }
-                            //"Sign In Success"
-                            let alertController = UIAlertController(title: "Message", message: "Sign in Success", preferredStyle: UIAlertController.Style.alert)
-                            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
-                                print("OK button pressed")
-                                self?.dismiss(animated: true, completion: nil)
-                            }))
-                            self?.present(alertController, animated: true, completion: nil)
-                            self?.controls(enabled: true)
                         }
                     } else {
                         self?.controls(enabled: true)
                     }
                 }
             }
-    }
-    
-    private func controls(enabled: Bool) {
-        if enabled {
-            busyActivityIndicator.stopAnimating()
-        } else {
-            busyActivityIndicator.startAnimating()
-        }
-        phoneNumberTextField.isEnabled = enabled
-        verifyButton.isEnabled = enabled
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
     
     private func presentOTPTextEntry(completion: @escaping (String?) -> Void) {
@@ -174,5 +148,39 @@ class ViewController: UIViewController {
         
         present(OTPTextEntry, animated: true, completion: nil)
     }
+}
+
+extension ViewController {
+    private func controls(enabled: Bool) {
+        if enabled {
+            busyActivityIndicator.stopAnimating()
+        } else {
+            busyActivityIndicator.startAnimating()
+        }
+        phoneNumberTextField.isEnabled = enabled
+        verifyButton.isEnabled = enabled
+    }
+    
+    private func displayAlert(title: String, message: String) {
+        let alertController = self.prepareAlert(title: title, message: message)
+        self.present(alertController, animated: true, completion: nil)
+        self.controls(enabled: true)
+    }
+    
+    private func prepareAlert(title: String, message: String) -> UIAlertController {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        
+        return alertController
+    }
+}
+
+enum AppError: String, Error {
+    case BadRequest
+    case NoData
+    case DecodingIssue
+    case Other
 }
 
