@@ -48,7 +48,7 @@ class ViewController: UIViewController {
     
     func truIDSIMCheckVerification(phoneNumber: String, completionHandler: @escaping (Bool, Error?) -> Void) {
         let session = URLSession.shared
-        let url = URL(string: "https://tough-mouse-62.loca.lt/sim-check")!
+        let url = URL(string: "https://{subdomain}.loca.lt/sim-check")!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
