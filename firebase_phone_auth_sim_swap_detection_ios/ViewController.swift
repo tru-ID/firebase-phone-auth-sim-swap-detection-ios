@@ -6,7 +6,7 @@
 //
 
 import UIKit
- import Firebase
+import Firebase
 
 class ViewController: UIViewController {
     
@@ -46,35 +46,39 @@ class ViewController: UIViewController {
         }
     }
     
+    enum AppError: String, Error {
+        case BadRequest
+        case NoData
+        case DecodingIssue
+        case Other
+    }
+
     func truIDSIMCheckVerification(phoneNumber: String, completionHandler: @escaping (Bool, Error?) -> Void) {
         let session = URLSession.shared
         let url = URL(string: "https://{subdomain}.loca.lt/sim-check")!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         let json = [ "phone_number": phoneNumber ]
         let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
         urlRequest.httpBody = jsonData
-        
+
         let task = session.dataTask(with: urlRequest) { data, response, error in
             if error != nil {
                 completionHandler(false, error)
                 return
             }
-            
+
             let httpResponse = response as! HTTPURLResponse
-            if (200...299) ~= httpResponse.statusCode {
+            if httpResponse.statusCode == 200 {
                 print(String(data: data!, encoding: .utf8)!)
                 do {
                     if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String:Any]{
-                        if let noSimChange = json["no_sim_change"] as? Bool {
-                            completionHandler(noSimChange, nil)
-                        } else {
-                            completionHandler(false, AppError.NoData)
-                        }
+                        let noSimChange = json["no_sim_change"] as! Bool
+                        completionHandler(noSimChange, nil)
                     }
-                    
+
                 } catch {
                     completionHandler(false, AppError.DecodingIssue)
                     print("JSON error: \(error.localizedDescription)")
@@ -86,7 +90,7 @@ class ViewController: UIViewController {
                 completionHandler(false, AppError.Other)
             }
         }
-        
+
         task.resume()
     }
     
@@ -175,12 +179,5 @@ extension ViewController {
         
         return alertController
     }
-}
-
-enum AppError: String, Error {
-    case BadRequest
-    case NoData
-    case DecodingIssue
-    case Other
 }
 
